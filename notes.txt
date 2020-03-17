@@ -1,0 +1,97 @@
+*******************************  SHELL  *******************************
+
+#! bin/bash : setting the interpreter
+# comments
+system variables: $HOME, $BASH, $BASH_VERSION, $PWD
+echo $BASH_VERSION 
+user defined variables: name = mamoun
+			echo $name
+reading user input: read 
+			 (-sp flag -> typed input will be hidden : usefull for passwords.
+			  -a  flag -> reading an array) varible_name
+displaying an array: echo {t[*]}
+default input variable: $REPLY exp: read
+				    echo "you typed: $REPLY"
+pass arguments to bash script: args are stored in $1, $2, .., $n variables.
+$*/$@ : default vars which store the args of the sript in an array.
+$#: number of the args passed to the bash script.
+conditions: if [ condition ] note: [] and (()) are nearly the same.
+	    then 
+		statement
+	    (elif/else)
+	    fi
+integer comparison:
+	-eq - is equal to - if [ "$a" -eq "$b"]
+	-ne - is not equal to - if [ "$a" -ne "$b"]
+	-gt - is greater than - >
+	-ge - is greater tha or equal to - >=
+	-lt - is less than - <
+	-le - is less than or equal to - <=
+string comarison:
+	== - is equal to
+	!= - is not equal to
+	< - is less than, in ASCII order - if [[ "$a" < "$b" ]]
+	> - is greater than, in ASCII order - if [[ "$a" > "$b" ]]
+	-z - string is null, that is, has a length of zero.
+
+echo -e "Enter the name: \c" -> keeps the cursor on the same line.
+if [ -e filename ] -> check wether the file/dir exists or not.
+     -f : file exists or not
+     -d : directory exists or not
+
+cat >> ->append
+cat >  ->override
+
+Logical operators: ] && [  or [[.. && ..]] or  [.. -a ..]
+		   ] || [  or [[.. || ..]] or  [.. -o ..]
+
+arithmetic operations: $(( x + y )) or (expr $x + $y) : integer args
+
+Escaping is a method of quoting single characters. The escape (\) preceding a character tells the shell to interpret that character literally. $(expr $x \* $y)
+
+bc: basic calculations: usage: echo 25+3.6 | bc
+			       echo "scale=3;20.5/5" | bc -> 4.100
+bc -l : using the mathlib (sqrt, ^, ...)
+
+case expression in 
+	pattern1 )
+		statements ;;
+	pattern2 )
+		statements ;;
+	...
+esac
+
+array:  t=('el0' 'el1' '..')
+	unset t[n] -> removing the el number n
+
+while [ condition ]
+do
+  instrurctions
+done
+
+sleep n -> stops the execution for n seconds
+
+until [ condition ]
+do
+  instructions
+done
+
+readonly variable: cannot be overriden
+
+
+echo "pid is $$" -> current terminal pid
+
+^C : interrupt signal
+^Z : Suspend signal
+kill -9 pid
+
+trap COMMAND SIGNAL
+exp:
+trap "echo Exit command is detected" SIGINT
+Note: 	manual of signals: man 7 signal
+	trap cannot catch SIGKILL and SIGTSTP
+
+debugging:	bash -x ./script.sh
+		set -x : starts the debug from this line of script.
+	    	set +x : stops debugging to this line.
+
